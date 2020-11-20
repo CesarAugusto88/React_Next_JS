@@ -1,12 +1,6 @@
+import App from 'next/app'
 import { createGlobalStyle, ThemeProvider } from 'styled-components'
-
-const GlobalStyle = createGlobalStyle`
-  body {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-`
+import GlobalStyle from '../components/GlobalStyle'
 
 const theme = {
   colors: {
@@ -14,13 +8,14 @@ const theme = {
   },
 }
 
-export default function App({ Component, pageProps }) {
-  return (
-    <>
-      <GlobalStyle />
+export default class MyApp extends App {
+  render () {
+    const { Component, pageProps } = this.props
+    return (
       <ThemeProvider theme={theme}>
-        <Component {...pageProps} />
-      </ThemeProvider>
-    </>
-  )
+          <GlobalStyle />
+          <Component {...pageProps} />
+        </ThemeProvider>
+    )
+  }
 }
